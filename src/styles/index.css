@@ -1,19 +1,24 @@
 :root {
---color-dark-gray: #10100e;
---color-white:#fff;
---color-black:#000;
+	/* colors */
+	--color-dark-gray: #10100e;
+	--color-white: #fff;
+	--color-black: #000;
+	--color-yellow: #ffff00;
+    --color-orange: orangered;
+	/* margins & paddings */
+	--spacing-medium: 20px;
 
---spacing-medium: 20px;
+	/* fonts */
+	--font-family-main: sans-serif;
+    --font-size-header: 26px;
 
---font-family-main: sans-serif;
-
---border-radius-small: 3px;
+	/* borders */
+	--border-radius-small: 3px;
 }
 
-
 body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-dark-gray);
-    font-family: var(--font-family-main);
+	margin: 0;
+	padding: 0;
+	background-color: var(--color-dark-gray);
+	font-family: var(--font-family-main);
 }
