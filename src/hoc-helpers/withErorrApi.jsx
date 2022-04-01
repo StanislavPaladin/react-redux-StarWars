@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ErrorMessage from "../components/PeoplePage/PeopleList/ErrorMessage";
+import ErrorMessage from "@components/PeoplePage/PeopleList/ErrorMessage";
 export const withErorrApi = (View) => {
     return (props) => {
         const [errorApi, setErrorApi] = useState(false);

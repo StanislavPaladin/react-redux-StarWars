@@ -1,17 +1,17 @@
 import styles from "./PeoplePage.module.css";
 import { useEffect, useState } from "react";
-import { withErorrApi } from "../../hoc-helpers/withErorrApi";
-import { getApiResource } from "../../utils/network";
-import { API_PEOPLE } from "../../constants/api";
-import { getPeopleId, getPeopleImage } from "../../services/getPeopleData";
-import PeopleList from "../../components/PeoplePage/PeopleList/PeopleList";
+import { withErorrApi } from "@hoc-helpers/withErorrApi";
+import { getApiResource } from "@utils/network";
+import { API_PEOPLE } from "@constants/api";
+import { getPeopleId, getPeopleImage } from "@services/getPeopleData";
+import PeopleList from "@components/PeoplePage/PeopleList/PeopleList";
 
 const PeoplePage = ({setErrorApi}) => {
 	const [people, setPeople] = useState(null);
 	
 
 	const getResource = async (url) => { 
-		const res = await getApiResource(url+1);
+		const res = await getApiResource(url);
 		if (res) {
 			const peopleList = res.results.map(({ name, url }) => {
 				const id = getPeopleId(url);
