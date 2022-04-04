@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { withErorrApi } from "@hoc-helpers/withErorrApi";
 import PeopleList from "@components/PeoplePage/PeopleList/PeopleList";
@@ -7,13 +7,12 @@ import { getApiResource } from "@utils/network";
 import { API_PEOPLE } from "@constants/api";
 import { getPeopleId, getPeopleImage } from "@services/getPeopleData";
 
-import styles from "./PeoplePage.module.css"
+import styles from "./PeoplePage.module.css";
 
-const PeoplePage = ({setErrorApi}) => {
+const PeoplePage = ({ setErrorApi }) => {
 	const [people, setPeople] = useState(null);
-	
 
-	const getResource = async (url) => { 
+	const getResource = async (url) => {
 		const res = await getApiResource(url);
 		if (res) {
 			const peopleList = res.results.map(({ name, url }) => {
@@ -37,15 +36,14 @@ const PeoplePage = ({setErrorApi}) => {
 	}, []);
 	return (
 		<>
-        <h1>Navigation</h1>
-        {people && <PeopleList people={people}/>}
-        </>
+			<h1 className="header__text">Navigation</h1>
+			{people && <PeopleList people={people} />}
+		</>
 	);
 };
 
 PeoplePage.propTypes = {
-    setErrorApi: PropTypes.func
-}
+	setErrorApi: PropTypes.func,
+};
 
-export default withErorrApi(PeoplePage) ;
-
+export default withErorrApi(PeoplePage);
