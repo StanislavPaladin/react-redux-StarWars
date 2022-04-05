@@ -11,8 +11,13 @@ const Header = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to="/people" exact="true">
+					<NavLink to="/people/?page=1" exact="true">
 						People
+					</NavLink>
+				</li>
+				<li>
+					<NavLink to="/not-found" exact="true">
+						Not Found
 					</NavLink>
 				</li>
 			</ul>

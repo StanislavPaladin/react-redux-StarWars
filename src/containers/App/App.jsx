@@ -13,7 +13,7 @@ function App() {
 					<Header />
 					<Routes>
 						{routesConfig.map((route, index) => (
-							<Route path={route.path} key={index} element={route.element} />
+							<Route path={route.path} key={index} element={route.element} exact={route.exact} />
 						))}
 					</Routes>
 				</div>
