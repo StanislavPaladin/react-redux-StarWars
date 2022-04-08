@@ -9,8 +9,9 @@
 	--color-violet: #ae72c2;
 
 	/* margins & paddings */
-	--spacing-medium: 20px;
 	--spacing-large: 30px;
+	--spacing-medium: 20px;
+	--spacing-small: 10px;
 
 	/* width height*/
 	--width-max: 1200px;

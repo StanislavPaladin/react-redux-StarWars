@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'; 
 
 import styles from "./PeopleList.module.css";
-const PeopleList = ({ people }) => {
+const PeopleList = ({ people, getResource }) => {
+
 	return (
 		<div>
 			<ul className={styles.list__container}>

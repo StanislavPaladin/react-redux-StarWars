@@ -25,6 +25,7 @@ const PeoplePage = ({ setErrorApi }) => {
 	const queryPage = query.get("page");
 
 	const getResource = async (url) => {
+		console.log(url);
 		const res = await getApiResource(url);
 		if (res) {
 			const peopleList = res.results.map(({ name, url }) => {
@@ -47,9 +48,11 @@ const PeoplePage = ({ setErrorApi }) => {
 			setErrorApi(true);
 		}
 	};
+
 	useEffect(() => {
 		getResource(API_PEOPLE + queryPage);
 	}, []);
+	
 	return (
 		<>
 			<PeopleNavigation
@@ -58,7 +61,7 @@ const PeoplePage = ({ setErrorApi }) => {
 				nextPage={nextPage}
 				counterPage={counterPage}
 			/>
-			{people && <PeopleList people={people} />}
+			{people && <PeopleList people={people} getResource={getResource}/>}
 		</>
 	);
 };
