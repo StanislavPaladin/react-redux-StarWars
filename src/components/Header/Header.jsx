@@ -1,7 +1,17 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 
 const Header = () => {
+	const [link, setLink] = useState('/people');
+	const handleMouseEnter = () => {
+		setLink('/people/?page=1')
+	}
+	const handleMouseLeave = () => {
+		setLink('/people')
+		
+	}
+	console.log(link);
 	return (
 		<div className={styles.container}>
 			<ul className={styles.list__container}>
@@ -11,7 +21,7 @@ const Header = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to="/people/?page=1" exact="true">
+					<NavLink to={link} exact="false" onMouseDown={handleMouseEnter} onMouseLeave={handleMouseLeave}>
 						People
 					</NavLink>
 				</li>

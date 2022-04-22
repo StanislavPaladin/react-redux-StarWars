@@ -11,6 +11,7 @@ import { getPeopleImage } from "@services/getPeopleData";
 import { useEffect, useState } from "react";
 
 import styles from "./CharacterPage.module.css";
+import CharacterLinkBack from "@components/CharacterPage/CharacterLinkBack";
 
 const CharacterPage = ({ setErrorApi }) => {
 	const id = useParams().id;
@@ -42,6 +43,7 @@ const CharacterPage = ({ setErrorApi }) => {
 	}, []);
 	return (
 		<>
+		<CharacterLinkBack/>
 			<div className={styles.wrapper}>
 				<span className={styles.person__name}>{characterName}</span>
 				<div className={styles.container}>
