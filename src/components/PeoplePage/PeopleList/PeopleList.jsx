@@ -1,17 +1,17 @@
-import PropTypes from 'prop-types'; 
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import styles from "./PeopleList.module.css";
 const PeopleList = ({ people, getResource }) => {
-
 	return (
 		<div>
 			<ul className={styles.list__container}>
 				{people.map(({ name, id, img }) => (
 					<li key={id} className={styles.list__item}>
-						<a href="#" className={styles.test} >
+						<Link to={`/people/${id}`}>
 							<img src={img} alt={name} className={styles.person__photo} />
 							<p>{name}</p>
-						</a>
+						</Link>
 					</li>
 				))}
 			</ul>
@@ -20,10 +20,7 @@ const PeopleList = ({ people, getResource }) => {
 };
 
 PeopleList.propTypes = {
-    people: PropTypes.array
-}
+	people: PropTypes.array,
+};
 
 export default PeopleList;
-
-
-

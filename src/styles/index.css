@@ -12,6 +12,8 @@
 	--spacing-large: 30px;
 	--spacing-medium: 20px;
 	--spacing-small: 10px;
+	--spacing-ultrasmall: 5px;
+	--margin-list: 7px;
 
 	/* width height*/
 	--width-max: 1200px;
@@ -23,6 +25,7 @@
 	--font-family-main: sans-serif;
 	--font-bold: 600;
 	--font-size-header: 26px;
+	--font-size-subheader: 18px;
 	--font-size-main: 16px;
 
 	/* text effects*/
@@ -31,6 +34,7 @@
 
 	/* borders */
 	--border-radius-small: 3px;
+	--border-radius-medium: 5px;
 
 	/* theme */
 	--theme-default-header: #cccc46;

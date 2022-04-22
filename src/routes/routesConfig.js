@@ -25,7 +25,7 @@ const routesConfig = [
 		element: <NotFoundPage />,
 	},
 	{
-		path: "/character",
+		path: "/people/:id",
 		exact: true,
 		element: <CharacterPage />,
 	},

@@ -16,13 +16,16 @@
 
 .list__item:hover {
     transform: scale(1.1, 1.1);
-    transition: var(--transition);
+    transition: all var(--transition) ease-out;
 }
 
 .list__item a {
 	text-decoration: none;
 	color: var(--color-black);
 	text-align: center;
+	outline: 0;
+    outline-offset: 0;
+	border: 0px;
 }
 
 
