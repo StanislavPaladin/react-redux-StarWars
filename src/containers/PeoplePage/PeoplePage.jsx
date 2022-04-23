@@ -25,7 +25,6 @@ const PeoplePage = ({ setErrorApi }) => {
 	const queryPage = query.get("page");
 
 	const getResource = async (url) => {
-		console.log(url);
 		const res = await getApiResource(url);
 		if (res) {
 			const peopleList = res.results.map(({ name, url }) => {
@@ -37,12 +36,10 @@ const PeoplePage = ({ setErrorApi }) => {
 					img,
 				};
 			});
-			console.log(res);
 			setPeople(peopleList);
 			setPrevPage(ChangeHTTP(res.previous));
 			setNextPage(ChangeHTTP(res.next));
 			setCounterPage(getPeoplePageId(url));
-			console.log(counterPage);
 			setErrorApi(false);
 		} else {
 			setErrorApi(true);

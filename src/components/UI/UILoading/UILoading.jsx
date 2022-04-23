@@ -10,7 +10,6 @@ import styles from "./UILoading.module.css";
 
 const UILoading = ({ theme = "white", isShadow = false, classes }) => {
 	const [loaderIcon, setLoaderIcon] = useState(null);
-    console.log(isShadow);
 	useEffect(() => {
 		switch (theme) {
 			case "black":

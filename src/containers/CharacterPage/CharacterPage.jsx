@@ -56,7 +56,7 @@ const CharacterPage = ({ setErrorApi }) => {
 					<CharacterPhoto characterPhoto={characterPhoto} characterName={characterName} />
 					{characterInfo && <CharacterInfo characterInfo={characterInfo} />}
 					{characterFilms && (
-						<Suspense fallback={<UILoading theme={"black"} isShadow={false} classes />}>
+						<Suspense fallback={<UILoading theme={"black"} isShadow={false} classes='' />}>
 							<CharacterFilms characterFilms={characterFilms} />
 						</Suspense>
 					)}
