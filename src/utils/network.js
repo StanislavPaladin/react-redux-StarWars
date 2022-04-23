@@ -7,7 +7,6 @@ import { HTTP, HTTPS } from "@constants/api";
  */
 export const ChangeHTTP = (url) => {
 	const result = url ? url.replace(HTTP, HTTPS) : url;
-
 	return result;
 };
 
@@ -27,4 +26,14 @@ export const getApiResource = async (url) => {
 		console.error(err);
 		return false;
 	}
+};
+
+// function which handle arrays of urls and fetching data from that urls
+export const makeCurrentRequest = async (url) => {
+	const res = await Promise.all(
+		url.map((res) => {
+			return fetch(res).then((res) => res.json());
+		})
+	);
+	return res;
 };

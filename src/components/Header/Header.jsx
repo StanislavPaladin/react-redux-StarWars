@@ -11,7 +11,6 @@ const Header = () => {
 		setLink('/people')
 		
 	}
-	console.log(link);
 	return (
 		<div className={styles.container}>
 			<ul className={styles.list__container}>

@@ -1,23 +1,29 @@
 import { useParams } from "react-router";
 import PropTypes from "prop-types";
+import React, { lazy, useEffect, useState, Suspense } from "react";
 
 import CharacterInfo from "@components/CharacterPage/CharacterInfo/CharacterInfo";
 import CharacterPhoto from "@components/CharacterPage/CharacterPhoto/CharacterPhoto";
+import CharacterLinkBack from "@components/CharacterPage/CharacterLinkBack";
+import UILoading from "@components/UI/UILoading/UILoading";
 
 import { getApiResource } from "@utils/network";
 import { API_CHARACTER } from "@constants/api";
 import { withErorrApi } from "@hoc-helpers/withErorrApi";
 import { getPeopleImage } from "@services/getPeopleData";
-import { useEffect, useState } from "react";
 
 import styles from "./CharacterPage.module.css";
-import CharacterLinkBack from "@components/CharacterPage/CharacterLinkBack";
+
+const CharacterFilms = React.lazy(() =>
+	import("@components/CharacterPage/CharacterFilms/CharacterFilms")
+);
 
 const CharacterPage = ({ setErrorApi }) => {
 	const id = useParams().id;
 	const [characterInfo, setCharacterInfo] = useState(null);
 	const [characterName, setCharacterName] = useState(null);
 	const [characterPhoto, setCharacterPhoto] = useState(null);
+	const [characterFilms, setCharacterFilms] = useState(null);
 
 	useEffect(() => {
 		(async () => {
@@ -34,7 +40,7 @@ const CharacterPage = ({ setErrorApi }) => {
 				]);
 				setCharacterName(res.name);
 				setCharacterPhoto(getPeopleImage(id));
-				console.log(characterPhoto);
+				res.films.length && setCharacterFilms(res.films);
 				setErrorApi(false);
 			} else {
 				setErrorApi(true);
@@ -43,12 +49,17 @@ const CharacterPage = ({ setErrorApi }) => {
 	}, []);
 	return (
 		<>
-		<CharacterLinkBack/>
+			<CharacterLinkBack />
 			<div className={styles.wrapper}>
 				<span className={styles.person__name}>{characterName}</span>
 				<div className={styles.container}>
 					<CharacterPhoto characterPhoto={characterPhoto} characterName={characterName} />
 					{characterInfo && <CharacterInfo characterInfo={characterInfo} />}
+					{characterFilms && (
+						<Suspense fallback={<UILoading theme={"black"} isShadow={false} classes />}>
+							<CharacterFilms characterFilms={characterFilms} />
+						</Suspense>
+					)}
 				</div>
 			</div>
 		</>
