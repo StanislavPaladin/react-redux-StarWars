@@ -1,9 +1,10 @@
 import { useParams } from "react-router";
 import PropTypes from "prop-types";
 import React, { useEffect, useState, Suspense } from "react";
+import { useSelector } from "react-redux";
 
 import CharacterInfo from "@components/CharacterPage/CharacterInfo/CharacterInfo";
-import CharacterPhoto from "@components/CharacterPage/CharacterPhoto/CharacterPhoto";
+import CharacterPhoto from "@components/CharacterPage/CharacterPhoto";
 import CharacterLinkBack from "@components/CharacterPage/CharacterLinkBack";
 import UILoading from "@components/UI/UILoading/UILoading";
 
@@ -19,17 +20,25 @@ const CharacterFilms = React.lazy(() =>
 );
 
 const CharacterPage = ({ setErrorApi }) => {
+	const storeData = useSelector(state => state.favoriteReducer)
 	const id = useParams().id;
+
+	
+
 	const [characterId, setCharacterId] = useState(null);
 	const [characterInfo, setCharacterInfo] = useState(null);
 	const [characterName, setCharacterName] = useState(null);
 	const [characterPhoto, setCharacterPhoto] = useState(null);
 	const [characterFilms, setCharacterFilms] = useState(null);
+	const [characterFavorite, setCharacterFavorite] = useState(null);
+
+	
 
 	useEffect(() => {
 		(async () => {
 			const res = await getApiResource(API_CHARACTER + id + "/");
 			setCharacterId(id);
+			storeData[id] ? setCharacterFavorite(true) : setCharacterFavorite(false);
 			if (res) {
 				setCharacterInfo([
 					{ title: "Height", data: res.height },
@@ -59,6 +68,8 @@ const CharacterPage = ({ setErrorApi }) => {
 						characterPhoto={characterPhoto}
 						characterName={characterName}
 						characterId={characterId}
+						characterFavorite={characterFavorite}
+						setCharacterFavorite={setCharacterFavorite}
 					/>
 					{characterInfo && <CharacterInfo characterInfo={characterInfo} />}
 					{characterFilms && (

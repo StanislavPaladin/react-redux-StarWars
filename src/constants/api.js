@@ -8,6 +8,7 @@ export const SWAPI_PEOPLE = "people";
 export const SWAPI_PARAM_PAGE="/?page="
 
 export const API_PEOPLE = HTTPS+SWAPI_ROOT+SWAPI_PEOPLE+SWAPI_PARAM_PAGE;
+export const API_FAVORTES = HTTPS+SWAPI_ROOT+SWAPI_PEOPLE;
 export const API_CHARACTER = HTTPS+SWAPI_ROOT+SWAPI_PEOPLE+'/';
 
 // visualGuide
