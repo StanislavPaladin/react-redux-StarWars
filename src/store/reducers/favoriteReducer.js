@@ -3,7 +3,9 @@ import {
 	REMOVE_PERSON_FROM_FAVORITE,
 } from "@store/constants/actionTypes";
 import { omit } from "lodash";
-const initialState = {};
+import { getLocalStorage } from "@utils/localStorage";
+
+const initialState = getLocalStorage('store');
 
 const favoriteReducer = (state = initialState, action) => {
 	switch (action.type) {
