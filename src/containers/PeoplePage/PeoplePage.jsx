@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { withErorrApi } from "@hoc-helpers/withErorrApi";
 import PeopleList from "@components/PeoplePage/PeopleList/PeopleList";
 import PeopleNavigation from "@components/PeoplePage/PeopleNavigation";
+import UILoading from "@components/UI/UILoading/UILoading";
 import { getApiResource, ChangeHTTP } from "@utils/network";
 import { API_PEOPLE } from "@constants/api";
 import {
@@ -58,7 +59,14 @@ const PeoplePage = ({ setErrorApi }) => {
 				nextPage={nextPage}
 				counterPage={counterPage}
 			/>
-			{people && <PeopleList people={people} getResource={getResource}/>}
+			{people ? <PeopleList people={people} getResource={getResource}/> : <UILoading theme={"white"} isShadow={true} classes={""} />}
+			{/* {people && 
+				<Suspense
+				fallback={<UILoading theme={"white"} isShadow={true} classes={""} />}
+			>
+				<PeopleList people={people} getResource={getResource}/>
+			</Suspense>
+				} */}
 		</>
 	);
 };

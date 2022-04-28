@@ -28,7 +28,12 @@ export const getApiResource = async (url) => {
 	}
 };
 
-// function which handle arrays of urls and fetching data from that urls
+
+/**
+ * function which handle arrays of urls and fetching data from that urls
+ * @param {String} url  --query url (array of urls)
+ * @returns {Promise} --result of Promise.all() 
+ */
 export const makeCurrentRequest = async (url) => {
 	const res = await Promise.all(
 		url.map((res) => {

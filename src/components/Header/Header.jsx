@@ -25,6 +25,11 @@ const Header = () => {
 					</NavLink>
 				</li>
 				<li>
+					<NavLink to="/favorites" exact="true">
+						Favorites
+					</NavLink>
+				</li>
+				<li>
 					<NavLink to="/not-found" exact="true">
 						Not Found
 					</NavLink>

@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import PropTypes from "prop-types";
-import React, { lazy, useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 
 import CharacterInfo from "@components/CharacterPage/CharacterInfo/CharacterInfo";
 import CharacterPhoto from "@components/CharacterPage/CharacterPhoto/CharacterPhoto";
@@ -20,6 +20,7 @@ const CharacterFilms = React.lazy(() =>
 
 const CharacterPage = ({ setErrorApi }) => {
 	const id = useParams().id;
+	const [characterId, setCharacterId] = useState(null);
 	const [characterInfo, setCharacterInfo] = useState(null);
 	const [characterName, setCharacterName] = useState(null);
 	const [characterPhoto, setCharacterPhoto] = useState(null);
@@ -28,6 +29,7 @@ const CharacterPage = ({ setErrorApi }) => {
 	useEffect(() => {
 		(async () => {
 			const res = await getApiResource(API_CHARACTER + id + "/");
+			setCharacterId(id);
 			if (res) {
 				setCharacterInfo([
 					{ title: "Height", data: res.height },
@@ -53,10 +55,14 @@ const CharacterPage = ({ setErrorApi }) => {
 			<div className={styles.wrapper}>
 				<span className={styles.person__name}>{characterName}</span>
 				<div className={styles.container}>
-					<CharacterPhoto characterPhoto={characterPhoto} characterName={characterName} />
+					<CharacterPhoto
+						characterPhoto={characterPhoto}
+						characterName={characterName}
+						characterId={characterId}
+					/>
 					{characterInfo && <CharacterInfo characterInfo={characterInfo} />}
 					{characterFilms && (
-						<Suspense fallback={<UILoading theme={"black"} isShadow={false} classes='' />}>
+						<Suspense fallback={<UILoading theme={"white"} isShadow={true} classes={""} />}>
 							<CharacterFilms characterFilms={characterFilms} />
 						</Suspense>
 					)}

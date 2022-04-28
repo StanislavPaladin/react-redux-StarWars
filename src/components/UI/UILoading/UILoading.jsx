@@ -22,20 +22,21 @@ const UILoading = ({ theme = "white", isShadow = false, classes }) => {
 				setLoaderIcon(loaderWhite);
 				break;
 			default:
-				setLoaderIcon(loaderWhite);
+				setLoaderIcon('white');
 				break;
 		}
-	}, []);
+		
+	}, [theme]);
 	return (
 		<>
-			{isShadow ? (
-				<img
+			{isShadow ? (loaderIcon && (<img
 					className={cn(styles.loader, styles.shadow)}
 					src={loaderIcon}
 					alt="loading..."
-				/>
+				/>)
+				
 			) : (
-				<img className={styles.loader} src={loaderIcon} alt="loading..." />
+				loaderIcon && (<img className={styles.loader} src={loaderIcon} alt="loading..." />)
 			)}
 		</>
 	);
