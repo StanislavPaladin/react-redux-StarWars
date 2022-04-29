@@ -7,14 +7,13 @@ import Favorite from "@components/Favorite";
 import styles from "./Header.module.css";
 
 const Header = () => {
-	const [link, setLink] = useState('/people');
+	const [link, setLink] = useState("/people");
 	const handleMouseEnter = () => {
-		setLink('/people/?page=1')
-	}
+		setLink("/people/?page=1");
+	};
 	const handleMouseLeave = () => {
-		setLink('/people')
-		
-	}
+		setLink("/people");
+	};
 	return (
 		<div className={styles.container}>
 			<ul className={styles.list__container}>
@@ -24,8 +23,18 @@ const Header = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to={link} exact="false" onMouseDown={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+					<NavLink
+						to={link}
+						exact="false"
+						onMouseDown={handleMouseEnter}
+						onMouseLeave={handleMouseLeave}
+					>
 						People
+					</NavLink>
+				</li>
+				<li>
+					<NavLink to="/search" exact="true">
+						Search
 					</NavLink>
 				</li>
 				<li>
@@ -34,7 +43,7 @@ const Header = () => {
 					</NavLink>
 				</li>
 			</ul>
-			<Favorite/>
+			<Favorite />
 		</div>
 	);
 };
