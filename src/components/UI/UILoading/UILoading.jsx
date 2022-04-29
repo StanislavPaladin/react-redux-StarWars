@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import cn from "classnames";
 
 import loaderViolet from "./img/loader-violet.svg";
@@ -8,36 +9,38 @@ import loaderBlack from "./img/loader-black.svg";
 
 import styles from "./UILoading.module.css";
 
-const UILoading = ({ theme = "white", isShadow = false, classes }) => {
+const UILoading = ({ isShadow = false, classes }) => {
 	const [loaderIcon, setLoaderIcon] = useState(null);
+	const storeData = useSelector((state) => state.themeReducer);
 	useEffect(() => {
-		switch (theme) {
-			case "black":
+		switch (storeData) {
+			case "dark":
 				setLoaderIcon(loaderBlack);
 				break;
-			case "violet":
+			case "light":
 				setLoaderIcon(loaderViolet);
 				break;
-			case "white":
+			case "robo":
 				setLoaderIcon(loaderWhite);
 				break;
 			default:
-				setLoaderIcon('white');
+				setLoaderIcon(loaderWhite);
 				break;
 		}
-		
-	}, [theme]);
+	}, []);
 	return (
 		<>
-			{isShadow ? (loaderIcon && (<img
-					className={cn(styles.loader, styles.shadow)}
-					src={loaderIcon}
-					alt="loading..."
-				/>)
-				
-			) : (
-				loaderIcon && (<img className={styles.loader} src={loaderIcon} alt="loading..." />)
-			)}
+			{isShadow
+				? loaderIcon && (
+						<img
+							className={cn(styles.loader, styles.shadow)}
+							src={loaderIcon}
+							alt="loading..."
+						/>
+				  )
+				: loaderIcon && (
+						<img className={styles.loader} src={loaderIcon} alt="loading..." />
+				  )}
 		</>
 	);
 };

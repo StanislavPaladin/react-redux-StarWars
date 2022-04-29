@@ -1,4 +1,4 @@
-import { ADD_PERSON_TO_FAVORITE, REMOVE_PERSON_FROM_FAVORITE } from "@store/constants/actionTypes";
+import { ADD_PERSON_TO_FAVORITE, REMOVE_PERSON_FROM_FAVORITE, CHANGE_THEME } from "@store/constants/actionTypes";
 
 export const setPersonToFavorite = (person) => ({
     type: ADD_PERSON_TO_FAVORITE,
@@ -9,3 +9,8 @@ export const removePersonFromFavorite = (personId) => ({
     type: REMOVE_PERSON_FROM_FAVORITE,
     payload: personId
 });
+
+export const changeTheme = (theme) => ({
+    type: CHANGE_THEME,
+    payload: theme
+})

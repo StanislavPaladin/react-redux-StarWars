@@ -1,5 +1,9 @@
+
+
 .list__container {
 	display: flex;
+	align-items: center;
+	justify-content: center;
 	flex-wrap: wrap;
 	margin: 0;
 	padding: 0;
@@ -12,11 +16,12 @@
 	border-radius: var(--border-radius-small);
 	background-color: var(--color-white);
 	cursor: pointer;
+	transition: all var(--transition) ease-out;
 }
 
 .list__item:hover {
-    transform: scale(1.1, 1.1);
-    transition: all var(--transition) ease-out;
+    transform: scale(1.1);
+    
 }
 
 .list__item a {

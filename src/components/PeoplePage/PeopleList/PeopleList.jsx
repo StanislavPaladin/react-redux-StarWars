@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "./PeopleList.module.css";
 const PeopleList = ({ people, getResource }) => {
 	return (
-		<div>
+		<div className={styles.container}>
 			<ul className={styles.list__container}>
 				{people.map(({ name, id, img }) => (
 					<li key={id} className={styles.list__item}>

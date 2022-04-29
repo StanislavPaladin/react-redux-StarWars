@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import Favorite from "@components/Favorite";
 
 import styles from "./Header.module.css";

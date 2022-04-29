@@ -13,23 +13,23 @@ const props = {
 	classes: "",
 };
 
-export const Black = Template.bind({});
-Black.args = {
+export const Dark = Template.bind({});
+Dark.args = {
 	...props,
-	theme: "black",
+	theme: "dark",
     isShadow: false,
 };
 
-export const White = Template.bind({});
-White.args = {
+export const Light = Template.bind({});
+Light.args = {
 	...props,
-	theme: "white",
+	theme: "light",
     isShadow: true,
 };
 
-export const Violet = Template.bind({});
-Violet.args = {
+export const Robo = Template.bind({});
+Robo.args = {
 	...props,
-	theme: "violet",
+	theme: "robo",
     isShadow: false,
 };

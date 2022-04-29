@@ -52,14 +52,14 @@ const PeoplePage = ({ setErrorApi }) => {
 	}, []);
 	
 	return (
-		<>
+		<div className={styles.container}>
 			<PeopleNavigation
 				getResource={getResource}
 				prevPage={prevPage}
 				nextPage={nextPage}
 				counterPage={counterPage}
 			/>
-			{people ? <PeopleList people={people} getResource={getResource}/> : <UILoading theme={"white"} isShadow={true} classes={""} />}
+			{people ? <PeopleList people={people} getResource={getResource}/> : <UILoading theme={"light"} isShadow={true} classes={""} />}
 			{/* {people && 
 				<Suspense
 				fallback={<UILoading theme={"white"} isShadow={true} classes={""} />}
@@ -67,7 +67,7 @@ const PeoplePage = ({ setErrorApi }) => {
 				<PeopleList people={people} getResource={getResource}/>
 			</Suspense>
 				} */}
-		</>
+		</div>
 	);
 };
 

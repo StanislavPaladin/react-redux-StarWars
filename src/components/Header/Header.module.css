@@ -30,7 +30,7 @@
 }
 
 .list__container :global(a.active) {
-    border: 2px solid var(--color-violet);
-    color: var(--color-violet);
+    border: 2px solid var(--theme-default-nav);
+    color: var(--theme-default-nav);
     text-shadow: none;
 }

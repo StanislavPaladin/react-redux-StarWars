@@ -9,7 +9,8 @@ const store = createStore(
 );
 // subscription to any changes in store to set data to localstorage
 store.subscribe(() => {
-	setLocalStorage('store', store.getState().favoriteReducer)
+	setLocalStorage('store', store.getState().favoriteReducer);
+    setLocalStorage('theme', store.getState().themeReducer)
 });
 
 export default store;
