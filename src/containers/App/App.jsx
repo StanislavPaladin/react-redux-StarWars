@@ -6,11 +6,11 @@ import Header from "@components/Header";
 import { getLocalStorage } from "@utils/localStorage";
 import { changeCSSVariables } from "@services/changeCSSVariables";
 
+import "../../styles/index.css"
 import styles from "./App.module.css";
 
 function App() {
 	const theme = getLocalStorage("theme");
-	console.log('theme', theme);
 	useEffect(() => {
 		changeCSSVariables(theme);
 	}, []);

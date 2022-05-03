@@ -1,0 +1,33 @@
+.container__input {
+    --clear-width:13px ;
+}
+
+.container__input {
+	position: relative;
+    display: inline-flex;
+}
+
+.input {
+	min-width: 300px;
+	padding: 10px calc(var(--clear-width)+25px) 10px 10px;
+	border: 3px solid var(--color-light-gray);
+	border-radius: var(--border-radius-small);
+	font-size: var(--font-size-main);
+	font-family: var(--font-family-main);
+	outline: none;
+}
+
+.clear {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+    width: var(--clear-width);
+    height: var(--clear-width);
+    opacity: .7;
+    transition: var(--transition);
+}
+
+.clear__disabled {
+    opacity: .3;
+}

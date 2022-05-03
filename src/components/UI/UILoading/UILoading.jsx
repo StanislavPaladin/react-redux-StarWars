@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import cn from "classnames";
 
 import loaderViolet from "./img/loader-violet.svg";
@@ -9,11 +8,12 @@ import loaderBlack from "./img/loader-black.svg";
 
 import styles from "./UILoading.module.css";
 
-const UILoading = ({ isShadow = false, classes }) => {
+const UILoading = ({ isShadow = false, classes, theme }) => {
 	const [loaderIcon, setLoaderIcon] = useState(null);
-	const storeData = useSelector((state) => state.themeReducer);
+
+	//loader icon change depends of choosen theme
 	useEffect(() => {
-		switch (storeData) {
+		switch (theme) {
 			case "dark":
 				setLoaderIcon(loaderBlack);
 				break;
@@ -37,10 +37,10 @@ const UILoading = ({ isShadow = false, classes }) => {
 							src={loaderIcon}
 							alt="loading..."
 						/>
-				  )
+					)
 				: loaderIcon && (
 						<img className={styles.loader} src={loaderIcon} alt="loading..." />
-				  )}
+					)}
 		</>
 	);
 };

@@ -16,7 +16,6 @@ export const ChangeHTTP = (url) => {
  * @returns {Promise} - Promise with query result
  */
 export const getApiResource = async (url) => {
-	console.log(url);
 	try {
 		const res = await fetch(url);
 		if (!res.ok) {

@@ -1,5 +1,9 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { debounce } from "lodash";
+
+import SearchPageInfo from "@components/SearchPage/SearchPageInfo";
+import UIInput from "@components/UI/UIInput";
 import { withErorrApi } from "@hoc-helpers/withErorrApi";
 import { getApiResource } from "@utils/network";
 import { API_SEARCH } from "@constants/api";
@@ -15,35 +19,44 @@ const SearchPage = ({ setErrorApi }) => {
 		const res = await getApiResource(API_SEARCH + param);
 		if (res) {
 			const peopleList = res.results.map(({ name, url }) => {
-                const id = getPeopleId(url);
-                const img = getPeopleImage(id);
+				const id = getPeopleId(url);
+				const img = getPeopleImage(id);
 				return {
-                    id,
-                    name,
-                    img
-                };
+					id,
+					name,
+					img,
+				};
 			});
-            setPeople(peopleList);
+			setPeople(peopleList);
 			setErrorApi(false);
 		} else {
 			setErrorApi(true);
 		}
 	};
 
-	const handleChange = (event) => {
-		const value = event.target.value;
+	useEffect(() => {
+		getResponse("");
+	}, []);
+
+	const debouncedResponse = useCallback(
+		debounce((value) => getResponse(value), 300),
+		[]
+	);
+
+	const handleChange = (value) => {
 		setInputValue(value);
-		getResponse(value);
+		debouncedResponse(value);
 	};
 	return (
 		<>
 			<h1 className="header__text">Search</h1>
-			<input
-				type="text"
+			<UIInput
 				placeholder="search characters"
 				value={inputValue}
-				onChange={handleChange}
+				handleChange={handleChange}
+				classes={styles.input__search}
 			/>
+			<SearchPageInfo people={people} />
 		</>
 	);
 };

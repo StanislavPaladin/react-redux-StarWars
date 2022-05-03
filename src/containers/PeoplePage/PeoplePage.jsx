@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import { withErorrApi } from "@hoc-helpers/withErorrApi";
 import PeopleList from "@components/PeoplePage/PeopleList/PeopleList";
@@ -17,6 +18,8 @@ import { useQueryParams } from "@hooks/useQueryParams";
 import styles from "./PeoplePage.module.css";
 
 const PeoplePage = ({ setErrorApi }) => {
+	const theme = useSelector((state) => state.themeReducer);
+
 	const [people, setPeople] = useState(null);
 	const [prevPage, setPrevPage] = useState(null);
 	const [nextPage, setNextPage] = useState(null);
@@ -59,7 +62,7 @@ const PeoplePage = ({ setErrorApi }) => {
 				nextPage={nextPage}
 				counterPage={counterPage}
 			/>
-			{people ? <PeopleList people={people} getResource={getResource}/> : <UILoading theme={"light"} isShadow={true} classes={""} />}
+			{people ? <PeopleList people={people} getResource={getResource}/> : <UILoading theme={theme} isShadow={true} classes={""} />}
 			{/* {people && 
 				<Suspense
 				fallback={<UILoading theme={"white"} isShadow={true} classes={""} />}
