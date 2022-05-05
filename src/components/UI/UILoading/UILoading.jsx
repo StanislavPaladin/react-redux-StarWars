@@ -33,7 +33,7 @@ const UILoading = ({ isShadow = false, classes, theme }) => {
 			{isShadow
 				? loaderIcon && (
 						<img
-							className={cn(styles.loader, styles.shadow)}
+							className={cn(styles.loader, styles.shadow, classes)}
 							src={loaderIcon}
 							alt="loading..."
 						/>

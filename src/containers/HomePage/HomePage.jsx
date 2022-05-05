@@ -14,13 +14,14 @@ import check from "./img/check.svg"
 
 import styles from "./HomePage.module.css";
 import { useEffect, useState } from "react";
+import { themeSelector } from "@store/constants/selectors";
 
 const HomePage = () => {
 	const dispatch = useDispatch();
 	const dispatchTheme = (themeName) => {
 		dispatch(changeTheme(themeName));
 	};
-	const storeData = useSelector((state) => state.themeReducer);
+	const storeData = useSelector(themeSelector);
 	const [activeTheme, setActiveTheme] = useState(null);
 	
 	useEffect(()=> {

@@ -6,3 +6,5 @@ export const THEME_DARK = "dark";
 export const THEME_ROBO = "robo";
 
 export const CHANGE_THEME = "CHANGE_THEME";
+
+export const SAVE_SEARCH_RESULTS = "SAVE_SEARCH_RESULTS";

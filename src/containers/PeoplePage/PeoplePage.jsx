@@ -14,12 +14,14 @@ import {
 	getPeoplePageId,
 } from "@services/getPeopleData";
 import { useQueryParams } from "@hooks/useQueryParams";
+import { themeSelector } from "@store/constants/selectors";
 
 import styles from "./PeoplePage.module.css";
 
-const PeoplePage = ({ setErrorApi }) => {
-	const theme = useSelector((state) => state.themeReducer);
 
+const PeoplePage = ({ setErrorApi }) => {
+	const theme = useSelector(themeSelector);
+	const [flagState, setFlagState] = useState(false);
 	const [people, setPeople] = useState(null);
 	const [prevPage, setPrevPage] = useState(null);
 	const [nextPage, setNextPage] = useState(null);
@@ -29,31 +31,36 @@ const PeoplePage = ({ setErrorApi }) => {
 	const queryPage = query.get("page");
 
 	const getResource = async (url) => {
-		const res = await getApiResource(url);
-		if (res) {
-			const peopleList = res.results.map(({ name, url }) => {
-				const id = getPeopleId(url);
-				const img = getPeopleImage(id);
-				return {
-					id,
-					name,
-					img,
-				};
-			});
-			setPeople(peopleList);
-			setPrevPage(ChangeHTTP(res.previous));
-			setNextPage(ChangeHTTP(res.next));
-			setCounterPage(getPeoplePageId(url));
-			setErrorApi(false);
-		} else {
-			setErrorApi(true);
+		if (!flagState) {
+			const res = await getApiResource(url);
+			if (res) {
+				const peopleList = res.results.map(({ name, url }) => {
+					const id = getPeopleId(url);
+					const img = getPeopleImage(id);
+					return {
+						id,
+						name,
+						img,
+					};
+				});
+				setPeople(peopleList);
+				setPrevPage(ChangeHTTP(res.previous));
+				setNextPage(ChangeHTTP(res.next));
+				setCounterPage(getPeoplePageId(url));
+				setErrorApi(false);
+			} else {
+				setErrorApi(true);
+			}
 		}
 	};
 
 	useEffect(() => {
 		getResource(API_PEOPLE + queryPage);
+		return () => {
+			setFlagState(true);
+		};
 	}, []);
-	
+
 	return (
 		<div className={styles.container}>
 			<PeopleNavigation
@@ -62,14 +69,12 @@ const PeoplePage = ({ setErrorApi }) => {
 				nextPage={nextPage}
 				counterPage={counterPage}
 			/>
-			{people ? <PeopleList people={people} getResource={getResource}/> : <UILoading theme={theme} isShadow={true} classes={""} />}
-			{/* {people && 
-				<Suspense
-				fallback={<UILoading theme={"white"} isShadow={true} classes={""} />}
-			>
-				<PeopleList people={people} getResource={getResource}/>
-			</Suspense>
-				} */}
+			
+			{people ? (
+				<PeopleList people={people} getResource={getResource} />
+			) : (
+				<UILoading theme={theme} isShadow={true} classes={""} />
+			)}
 		</div>
 	);
 };

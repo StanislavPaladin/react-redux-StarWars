@@ -8,12 +8,12 @@ import {
 	getPeopleImage,
 	getPeoplePageId,
 } from "@services/getPeopleData";
-import { useQueryParams } from "@hooks/useQueryParams";
+import { favoritesSelector } from "@store/constants/selectors";
 
 import styles from "./FavoritesPage.module.css";
 
 const FavoritesPage = ({setErrorApi}) => {
-	const storeData = useSelector(state => state.favoriteReducer);
+	const storeData = useSelector(favoritesSelector);
 	const [people, setPeople] = useState([]);
 	
 

@@ -28,11 +28,10 @@ export const getApiResource = async (url) => {
 	}
 };
 
-
 /**
  * function which handle arrays of urls and fetching data from that urls
  * @param {String} url  --query url (array of urls)
- * @returns {Promise} --result of Promise.all() 
+ * @returns {Promise} --result of Promise.all()
  */
 export const makeCurrentRequest = async (url) => {
 	const res = await Promise.all(
@@ -41,4 +40,41 @@ export const makeCurrentRequest = async (url) => {
 		})
 	);
 	return res;
+};
+
+const fetchNext = async (url, allData) => {
+	try {
+		const res = await fetch(url);
+		if (!res.ok) {
+			return false;
+		}
+		const data = await res.json();
+		const results = data.results;
+		allData.push(results);
+		if (data.next) {
+			await fetchNext(data.next, allData);
+		} else {
+			return {};
+		}
+		return results;
+	} catch (err) {
+		console.error(err);
+		return false;
+	}
+};
+
+export const fetchAllData = async (url) => {
+	const allData = [];
+	try {
+		const res = await fetch(url);
+		if (!res.ok) {
+			return false;
+		}
+		const data = await res.json();
+		data.next && (await fetchNext(data.next, allData));
+		return await allData.flat();
+	} catch (err) {
+		console.error(err);
+		return false;
+	}
 };

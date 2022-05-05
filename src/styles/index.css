@@ -95,3 +95,8 @@ img {
 	color: var(--theme-default-header);
 	transition: color var(--transition);
 }
+
+
+.center {
+    align-self: center;
+}

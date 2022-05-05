@@ -1,0 +1,110 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+}
+
+.list__container {
+	width: 70%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.list__item {
+	margin: var(--spacing-ultrasmall);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.list__item a {
+	text-decoration: none;
+}
+
+.person__photo {
+	width: 150px;
+	height: 200px;
+	border-radius: var(--border-radius-medium);
+	transition: var(--transition);
+}
+
+.person__photo:hover {
+	transform: scale(1.1);
+}
+
+.person__name {
+	font-family: var(--font-family-main);
+	font-size: var(--font-bold);
+	color: var(--theme-default-header);
+	text-shadow: var(--text-shadow-yellow);
+}
+
+.filters__container {
+	position: fixed;
+	padding: var(--spacing-ultrasmall);
+	background-color: var(--theme-default-header);
+	border-radius: var(--border-radius-medium);
+	opacity: 0.6;
+	right: 25px;
+	top: 90px;
+	width: 25%;
+	height: 180px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: start;
+}
+
+.filters__filter {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.filter__checkbox {
+	cursor: pointer;
+}
+
+.filter__label {
+	padding-top: 1px;
+	color: var(--color-black);
+	font-family: var(--font-family-main);
+	font-weight: var(--font-bold);
+}
+
+@media screen and (max-width: 805px) {
+	.filters__container {
+		top: 130px;
+	}
+}
+
+@media screen and (max-width: 465px) {
+	.filters__container {
+		top: 165px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.filter__episode {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	.filters__container {
+		top: 200px;
+	}
+}
+
+@media screen and (max-width: 340px) {
+	.filters__container {
+		top: 273px;
+	}
+}

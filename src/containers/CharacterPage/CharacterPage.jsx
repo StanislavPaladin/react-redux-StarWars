@@ -21,6 +21,8 @@ const CharacterFilms = React.lazy(() =>
 
 const CharacterPage = ({ setErrorApi }) => {
 	const storeData = useSelector((state) => state.favoriteReducer);
+
+	const [flagState, setFlagState] = useState(false);
 	const [characterId, setCharacterId] = useState(null);
 	const [characterInfo, setCharacterInfo] = useState(null);
 	const [characterName, setCharacterName] = useState(null);
@@ -28,9 +30,9 @@ const CharacterPage = ({ setErrorApi }) => {
 	const [characterFilms, setCharacterFilms] = useState(null);
 	const [characterFavorite, setCharacterFavorite] = useState(null);
 	const id = useParams().id;
-	
-	useEffect(() => {
-		(async () => {
+
+	const getCharacterResponse = async () => {
+		if (!flagState) {
 			const res = await getApiResource(API_CHARACTER + id + "/");
 			setCharacterId(id);
 			storeData[id] ? setCharacterFavorite(true) : setCharacterFavorite(false);
@@ -51,7 +53,14 @@ const CharacterPage = ({ setErrorApi }) => {
 			} else {
 				setErrorApi(true);
 			}
-		})();
+		}
+	};
+
+	useEffect(() => {
+		getCharacterResponse();
+		return () => {
+			setFlagState(true);
+		};
 	}, []);
 	return (
 		<>

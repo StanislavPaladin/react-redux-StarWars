@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import Favorite from "@components/Favorite";
 
@@ -38,8 +37,18 @@ const Header = () => {
 					</NavLink>
 				</li>
 				<li>
+					<NavLink to="/filter" exact="false">
+						Filter
+					</NavLink>
+				</li>
+				<li>
 					<NavLink to="/not-found" exact="true">
 						Not Found
+					</NavLink>
+				</li>
+				<li>
+					<NavLink to="/fail" exact="true">
+						Fail
 					</NavLink>
 				</li>
 			</ul>

@@ -3,7 +3,9 @@ import HomePage from "@containers/HomePage";
 import NotFoundPage from "@containers/NotFoundPage";
 import CharacterPage from "@containers/CharacterPage";
 import FavoritesPage from "@containers/FavoritesPage";
-import SearchPage from "@containers/SearchPage"
+import SearchPage from "@containers/SearchPage";
+import ErrorMessage from "@components/PeoplePage/PeopleList/ErrorMessage";
+import FilterPage from "@containers/FilterPage/FilterPage";
 
 const routesConfig = [
 	{
@@ -40,6 +42,16 @@ const routesConfig = [
 		path: "/search",
 		exact: true,
 		element: <SearchPage />,
+	},
+	{
+		path: "/fail",
+		exact: true,
+		element: <ErrorMessage />,
+	},
+	{
+		path: "/filter",
+		exact: false,
+		element: <FilterPage />,
 	},
 ];
 
