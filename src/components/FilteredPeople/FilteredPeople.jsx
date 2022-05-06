@@ -82,9 +82,9 @@ const FilteredPeople = ({ people, setPeople }) => {
 						value={checkedFields.episodeOne}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="1"
+						name="4"
 					/>
-					<label className={styles.filter__label} htmlFor="1">
+					<label className={styles.filter__label} htmlFor="4">
 						<span className={styles.filter__episode}>Episode</span> 1
 					</label>
 				</div>
@@ -94,9 +94,9 @@ const FilteredPeople = ({ people, setPeople }) => {
 						checked={checkedFields.episodeTwo}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="2"
+						name="5"
 					/>
-					<label className={styles.filter__label} htmlFor="2">
+					<label className={styles.filter__label} htmlFor="5">
 						<span className={styles.filter__episode}>Episode</span> 2
 					</label>
 				</div>
@@ -107,9 +107,9 @@ const FilteredPeople = ({ people, setPeople }) => {
 						value={checkedFields.episodeThree}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="3"
+						name="6"
 					/>
-					<label className={styles.filter__label} htmlFor="3">
+					<label className={styles.filter__label} htmlFor="6">
 						<span className={styles.filter__episode}>Episode</span> 3
 					</label>
 				</div>
@@ -120,9 +120,9 @@ const FilteredPeople = ({ people, setPeople }) => {
 						value={checkedFields.episodeFour}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="4"
+						name="1"
 					/>
-					<label className={styles.filter__label} htmlFor="4">
+					<label className={styles.filter__label} htmlFor="1">
 						<span className={styles.filter__episode}>Episode</span> 4
 					</label>
 				</div>
@@ -133,9 +133,9 @@ const FilteredPeople = ({ people, setPeople }) => {
 						value={checkedFields.episodeFive}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="5"
+						name="2"
 					/>
-					<label className={styles.filter__label} htmlFor="5">
+					<label className={styles.filter__label} htmlFor="2">
 						<span className={styles.filter__episode}>Episode</span> 5
 					</label>
 				</div>
@@ -146,9 +146,9 @@ const FilteredPeople = ({ people, setPeople }) => {
 						value={checkedFields.episodeSix}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="6"
+						name="3"
 					/>
-					<label className={styles.filter__label} htmlFor="6">
+					<label className={styles.filter__label} htmlFor="3">
 						<span className={styles.filter__episode}>Episode</span> 6
 					</label>
 				</div>
