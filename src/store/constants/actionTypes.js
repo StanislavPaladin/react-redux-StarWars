@@ -8,3 +8,6 @@ export const THEME_ROBO = "robo";
 export const CHANGE_THEME = "CHANGE_THEME";
 
 export const SAVE_SEARCH_RESULTS = "SAVE_SEARCH_RESULTS";
+
+export const FETCH_ALL_PEOPLE = "FETCH_ALL_PEOPLE";
+export const SAVE_CHECKED_FILTERS = "SAVE_CHECKED_FILTERS";

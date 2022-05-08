@@ -46,14 +46,14 @@
 }
 
 .dark.theme__btn:hover {
-	border: 4px solid var(--theme-dark-border);
+	box-shadow: var(--theme-dark-box-shadow);
 	border-radius: 15px;
 }
 .light:hover {
-	border: 4px solid var(--theme-light-border);
+	box-shadow: var(--theme-light-box-shadow);
 	border-radius: 15px;
 }
 .robo:hover {
-	border: 4px solid var(--theme-robo-border);
+	box-shadow: var(--theme-robo-box-shadow);
 	border-radius: 15px;
 }

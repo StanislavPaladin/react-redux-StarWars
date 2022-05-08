@@ -1,28 +1,44 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { allPeopleSelector, checkedFilters } from "@store/constants/selectors";
+import { saveCheckedFilters } from "@store/actions";
+import UILoading from "@components/UI/UILoading";
 
 import styles from "./FilteredPeople.module.css";
 
-const FilteredPeople = ({ people, setPeople }) => {
-	const [checkedFields, setCheckedFields] = useState({
-		1: false,
-		2: false,
-		3: false,
-		4: false,
-		5: false,
-		6: false,
-	});
+const FilteredPeople = ({ theme }) => {
+	const allPeopleStoreData = useSelector(allPeopleSelector);
+	const savedFiltersStoreData = useSelector(checkedFilters);
+	const dispatch = useDispatch();
+	const dispatchFiltered = () => {
+		dispatch(saveCheckedFilters(checkedFields));
+	};
 
-
+	const [checkedFields, setCheckedFields] = useState(
+		savedFiltersStoreData || {
+			episode1: false,
+			episode2: false,
+			episode3: false,
+			episode4: false,
+			episode5: false,
+			episode6: false,
+		}
+	);
+	const [people, setPeople] = useState(allPeopleStoreData);
 	const [filtered, setFiltered] = useState(null);
 
 	useEffect(() => {
-		setPeople(people.sort((a, b) => (a.name > b.name ? 1 : -1)));
-	}, []);
+		people && setPeople(people?.sort((a, b) => (a.name > b.name ? 1 : -1)));
+		filterPeopleByEpisodes();
+		setPeople(allPeopleStoreData);
+		setFiltered(allPeopleStoreData);
+	}, [allPeopleStoreData]);
 
 	useEffect(() => {
 		filterPeopleByEpisodes();
+		dispatchFiltered();
 	}, [checkedFields]);
 
 	const filterPeopleByEpisodes = () => {
@@ -30,17 +46,24 @@ const FilteredPeople = ({ people, setPeople }) => {
 		const findEpisodeNumbers = checkedObjectEntries.filter(
 			(item) => String(item[1]) == "true"
 		);
-		const checkedEpisodes = findEpisodeNumbers.map((ep) => ep[0]);
+		const checkedEpisodes = findEpisodeNumbers.map((ep) =>
+			ep[0].split("episode").join("")
+		);
 		if (checkedEpisodes.length > 0) {
-			const filteredPersonsByEpisodes = people.map((person) => {
-				const personEpisodes = person.films.map(film => film.slice(film.length -3 ,film.length).split('/').join(''))
+			const filteredPersonsByEpisodes = people?.map((person) => {
+				const personEpisodes = person.films.map((film) =>
+					film
+						.slice(film.length - 3, film.length)
+						.split("/")
+						.join("")
+				);
 				for (let i = 0; i < checkedEpisodes.length; i++) {
 					if (personEpisodes.indexOf(checkedEpisodes[i]) == -1) return null;
 				}
 				return person;
 			});
 			setFiltered(
-				filteredPersonsByEpisodes.filter(function (el) {
+				filteredPersonsByEpisodes?.filter(function (el) {
 					return el != null;
 				})
 			);
@@ -51,104 +74,104 @@ const FilteredPeople = ({ people, setPeople }) => {
 
 	const toggleCkeckBox = (e) => {
 		const { target } = e;
-		const value = target.checked;
+		const value = target.type === 'checkbox' ? target.checked : target.value;
 		const { name } = target;
 		setCheckedFields((fields) => ({ ...fields, [name]: value }));
 	};
 
 	return (
 		<div className={styles.container}>
-			<ul className={styles.list__container}>
-				{filtered &&
-					filtered.map(({ name, id, img }) => (
-						<li key={id} className={styles.list__item}>
-							<Link to={`/people/${id}`}>
-								<img src={img} alt={name} className={styles.person__photo} />
-								<p className={styles.person__name}>{name}</p>
-							</Link>
-						</li>
-					))}
-				{!filtered && (
-					<div className="header__text">
-						Select episode to show characters filtered by that episode
-					</div>
-				)}
-			</ul>
+			{people && people.length ? (
+				<ul className={styles.list__container}>
+					{filtered &&
+						filtered.map(({ name, id, img }) => (
+							<li key={id} className={styles.list__item}>
+								<Link to={`/people/${id}`}>
+									<img src={img} alt={name} className={styles.person__photo} />
+									<p className={styles.person__name}>{name}</p>
+								</Link>
+							</li>
+						))}
+				</ul>
+			) : (
+				<UILoading theme={theme} />
+			)}
+
 			<div className={styles.filters__container}>
 				<div className={styles.filters__filter}>
 					<input
 						onChange={toggleCkeckBox}
-						checked={checkedFields.episodeOne}
-						value={checkedFields.episodeOne}
+						checked={checkedFields.episode4}
+						value={checkedFields.episode4}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="4"
+						name="episode4"
 					/>
-					<label className={styles.filter__label} htmlFor="4">
+					<label className={styles.filter__label} htmlFor="episode4">
 						<span className={styles.filter__episode}>Episode</span> 1
 					</label>
 				</div>
 				<div className={styles.filters__filter}>
 					<input
 						onChange={toggleCkeckBox}
-						checked={checkedFields.episodeTwo}
+						checked={checkedFields.episode5}
+						value={checkedFields.episode5}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="5"
+						name="episode5"
 					/>
-					<label className={styles.filter__label} htmlFor="5">
+					<label className={styles.filter__label} htmlFor="episode5">
 						<span className={styles.filter__episode}>Episode</span> 2
 					</label>
 				</div>
 				<div className={styles.filters__filter}>
 					<input
 						onChange={toggleCkeckBox}
-						checked={checkedFields.episodeThree}
-						value={checkedFields.episodeThree}
+						checked={checkedFields.episode6}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="6"
+						name="episode6"
 					/>
-					<label className={styles.filter__label} htmlFor="6">
+					<label className={styles.filter__label} htmlFor="episode6">
 						<span className={styles.filter__episode}>Episode</span> 3
 					</label>
 				</div>
 				<div className={styles.filters__filter}>
 					<input
 						onChange={toggleCkeckBox}
-						checked={checkedFields.episodeFour}
-						value={checkedFields.episodeFour}
+						checked={checkedFields.episode1}
+						value={checkedFields.episode1}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="1"
+						name="episode1"
 					/>
-					<label className={styles.filter__label} htmlFor="1">
+					<label className={styles.filter__label} htmlFor="episode1">
 						<span className={styles.filter__episode}>Episode</span> 4
 					</label>
 				</div>
 				<div className={styles.filters__filter}>
 					<input
 						onChange={toggleCkeckBox}
-						checked={checkedFields.episodeFive}
-						value={checkedFields.episodeFive}
+						checked={checkedFields.episode2}
+						value={checkedFields.episode2}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="2"
+						name="episode2"
 					/>
-					<label className={styles.filter__label} htmlFor="2">
+					<label className={styles.filter__label} htmlFor="episode2">
 						<span className={styles.filter__episode}>Episode</span> 5
 					</label>
 				</div>
 				<div className={styles.filters__filter}>
 					<input
 						onChange={toggleCkeckBox}
-						checked={checkedFields.episodeSix}
-						value={checkedFields.episodeSix}
+						checked={checkedFields.episode3}
+						value={checkedFields.episode3}
 						className={styles.filter__checkbox}
 						type="checkbox"
-						name="3"
+						name="episode3"
 					/>
-					<label className={styles.filter__label} htmlFor="3">
+					<label className={styles.filter__label} htmlFor="episode3">
 						<span className={styles.filter__episode}>Episode</span> 6
 					</label>
 				</div>

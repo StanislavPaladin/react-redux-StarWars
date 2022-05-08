@@ -12,6 +12,7 @@ store.subscribe(() => {
 	setLocalStorage('store', store.getState().favoriteReducer);
     setLocalStorage('theme', store.getState().themeReducer);
 	setLocalStorage('search', store.getState().searchReducer);
+	setLocalStorage('allPeople', store.getState().filtersReducer);
 });
 
 export default store;

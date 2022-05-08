@@ -10,7 +10,6 @@ const CharacterFilms = ({ characterFilms }) => {
 	useEffect(() => {
 		(async () => {
 			const filmsHTTPS = characterFilms.map((url) => ChangeHTTP(url));
-			console.log('filmsHTTPS', filmsHTTPS)
 			const response = await makeCurrentRequest(filmsHTTPS);
             const sortedFilmsByEpisodeId = response.sort((a, b) => a.episode_id > b.episode_id ? 1 : -1);
 			setFilmsName(sortedFilmsByEpisodeId);

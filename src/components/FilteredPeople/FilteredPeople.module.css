@@ -46,6 +46,7 @@
 }
 
 .filters__container {
+	box-shadow: var(--theme-default-box-shadow);
 	position: fixed;
 	padding: var(--spacing-ultrasmall);
 	background-color: var(--theme-default-header);

@@ -61,10 +61,15 @@
 	--theme-light-border: #fad502;
 	--theme-dark-border: #070405;
 	--theme-robo-border: #0aad25;
+	
+	--theme-robo-box-shadow: 0px 0px 30px 15px #0aad25;
+	--theme-dark-box-shadow: 0px 0px 30px 15px #8A2831;
+	--theme-light-box-shadow: 0px 0px 30px 15px #fad502;
 
 	--theme-default-header: var(--theme-robo-header);
 	--theme-default-bg: var(--theme-robo-bg);
 	--theme-default-nav: var(--theme-robo-nav);
+	--theme-default-box-shadow: var(--theme-robo-box-shadow);
 }
 
 html {
