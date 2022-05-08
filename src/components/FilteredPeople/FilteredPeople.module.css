@@ -17,10 +17,20 @@
 
 .list__item {
 	margin: var(--spacing-ultrasmall);
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
+	transition: var(--transition);
+}
+
+.person__favorite {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: 5px;
+	right: 5px;
 }
 
 .list__item a {
@@ -31,10 +41,10 @@
 	width: 150px;
 	height: 200px;
 	border-radius: var(--border-radius-medium);
-	transition: var(--transition);
+
 }
 
-.person__photo:hover {
+.list__item:hover {
 	transform: scale(1.1);
 }
 

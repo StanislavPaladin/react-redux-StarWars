@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getApiResource, ChangeHTTP } from "@utils/network";
-import { API_FAVORTES } from "@constants/api";
 import PeopleList from "@components/PeoplePage/PeopleList"
-import {
-	getPeopleId,
-	getPeopleImage,
-	getPeoplePageId,
-} from "@services/getPeopleData";
 import { favoritesSelector } from "@store/constants/selectors";
 
 import styles from "./FavoritesPage.module.css";
@@ -29,7 +22,7 @@ const FavoritesPage = ({setErrorApi}) => {
 			});
 			setPeople(res);
 		}
-	}, [])
+	}, [storeData])
 
 	return (
 		<>

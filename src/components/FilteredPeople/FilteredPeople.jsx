@@ -2,15 +2,25 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { allPeopleSelector, checkedFilters } from "@store/constants/selectors";
+import {
+	allPeopleSelector,
+	checkedFilters,
+	favoritesSelector,
+} from "@store/constants/selectors";
 import { saveCheckedFilters } from "@store/actions";
+import { setPersonToFavorite, removePersonFromFavorite } from "@store/actions";
 import UILoading from "@components/UI/UILoading";
+import starFilledImg from "./img/star-fill.svg";
+import starEmptyImg from "./img/star.svg";
 
 import styles from "./FilteredPeople.module.css";
 
 const FilteredPeople = ({ theme }) => {
 	const allPeopleStoreData = useSelector(allPeopleSelector);
 	const savedFiltersStoreData = useSelector(checkedFilters);
+	const favoritePeople = useSelector(favoritesSelector);
+	const favoriteCharacters = Object.entries(favoritePeople);
+
 	const dispatch = useDispatch();
 	const dispatchFiltered = () => {
 		dispatch(saveCheckedFilters(checkedFields));
@@ -30,7 +40,7 @@ const FilteredPeople = ({ theme }) => {
 	const [filtered, setFiltered] = useState(null);
 
 	useEffect(() => {
-		people && setPeople(people?.sort((a, b) => (a.name > b.name ? 1 : -1)));
+		// people && setPeople(people?.sort((a, b) => (a.name > b.name ? 1 : -1)));
 		filterPeopleByEpisodes();
 		setPeople(allPeopleStoreData);
 		setFiltered(allPeopleStoreData);
@@ -44,7 +54,7 @@ const FilteredPeople = ({ theme }) => {
 	const filterPeopleByEpisodes = () => {
 		const checkedObjectEntries = Object.entries(checkedFields);
 		const findEpisodeNumbers = checkedObjectEntries.filter(
-			(item) => String(item[1]) == "true"
+			(item) => item[1] === true
 		);
 		const checkedEpisodes = findEpisodeNumbers.map((ep) =>
 			ep[0].split("episode").join("")
@@ -58,7 +68,7 @@ const FilteredPeople = ({ theme }) => {
 						.join("")
 				);
 				for (let i = 0; i < checkedEpisodes.length; i++) {
-					if (personEpisodes.indexOf(checkedEpisodes[i]) == -1) return null;
+					if (personEpisodes.indexOf(checkedEpisodes[i]) === -1) return null;
 				}
 				return person;
 			});
@@ -74,10 +84,28 @@ const FilteredPeople = ({ theme }) => {
 
 	const toggleCkeckBox = (e) => {
 		const { target } = e;
-		const value = target.type === 'checkbox' ? target.checked : target.value;
+		const value = target.type === "checkbox" ? target.checked : target.value;
 		const { name } = target;
 		setCheckedFields((fields) => ({ ...fields, [name]: value }));
 	};
+
+	const dispatchFavorites = (e, id, name, img, isFavorite) => {
+		e.preventDefault();
+		if(!isFavorite) {
+			dispatch(
+				setPersonToFavorite({
+					[id]: {
+						name: name,
+						img: img,
+					},
+				})
+			);
+		} else {
+			dispatch(removePersonFromFavorite(id));
+		}
+	};
+
+	
 
 	return (
 		<div className={styles.container}>
@@ -89,6 +117,21 @@ const FilteredPeople = ({ theme }) => {
 								<Link to={`/people/${id}`}>
 									<img src={img} alt={name} className={styles.person__photo} />
 									<p className={styles.person__name}>{name}</p>
+									{!!favoriteCharacters.find((item) => item[0] === id) ? (
+										<img
+											onClick={(e) => dispatchFavorites(e,id, name, img, true)}
+											className={styles.person__favorite}
+											src={starFilledImg}
+											alt="favorite"
+										/>
+									) : (
+										<img
+											onClick={(e) => dispatchFavorites(e,id, name, img, false)}
+											className={styles.person__favorite}
+											src={starEmptyImg}
+											alt="not favorite"
+										/>
+									)}
 								</Link>
 							</li>
 						))}

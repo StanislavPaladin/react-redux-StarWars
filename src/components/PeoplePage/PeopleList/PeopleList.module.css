@@ -12,11 +12,20 @@
 
 .list__item {
 	width: 190px;
+	position: relative;
 	margin: var(--spacing-medium);
 	border-radius: var(--border-radius-small);
 	background-color: var(--color-white);
 	cursor: pointer;
 	transition: all var(--transition) ease-out;
+}
+
+.person__favorite {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: 5px;
+	right: 5px;
 }
 
 .list__item:hover {
