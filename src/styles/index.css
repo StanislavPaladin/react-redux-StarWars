@@ -105,3 +105,18 @@ img {
 .center {
     align-self: center;
 }
+
+
+/* scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: var(--theme-default-header);
+	border-radius: 3px;
+}
+
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner{
+	background-color: rgba(0,0,0,7)
+}

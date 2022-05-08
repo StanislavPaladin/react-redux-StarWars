@@ -4,6 +4,7 @@ import PeopleList from "@components/PeoplePage/PeopleList"
 import { favoritesSelector } from "@store/constants/selectors";
 
 import styles from "./FavoritesPage.module.css";
+import CharacterLinkBack from "../../components/CharacterPage/CharacterLinkBack/CharacterLinkBack";
 
 const FavoritesPage = ({setErrorApi}) => {
 	const storeData = useSelector(favoritesSelector);
@@ -26,7 +27,9 @@ const FavoritesPage = ({setErrorApi}) => {
 
 	return (
 		<>
+		
 		<h1 className="header__text">Your favorite characters list :</h1>
+		<CharacterLinkBack/>
 		{Object.entries(storeData).length ? <PeopleList people={people}/> : <h2 className={styles.comment}>No Data</h2>}
 		</>
 	)
