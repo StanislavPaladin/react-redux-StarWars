@@ -1,6 +1,7 @@
 {
   "name": "2",
   "version": "0.1.0",
+  "homepage" : "https://stanislavpaladin.github.io/react-redux-StarWars/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
