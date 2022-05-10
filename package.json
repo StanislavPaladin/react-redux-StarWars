@@ -1,7 +1,7 @@
 {
   "name": "2",
   "version": "0.1.0",
-  "homepage" : "https://stanislavpaladin.github.io/react-redux-StarWars/",
+  "homepage": "https://stanislavpaladin.github.io/react-redux-StarWars/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
@@ -24,11 +24,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "deploy": "npm run build && npm run build-storybook && npm run build-gh-pages",
+    "build-storybook": "build-storybook -o ./build/storybook",
+    "deploy-storybook": "storybook-to-ghpages",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-gh-pages": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -68,7 +71,9 @@
     "@storybook/node-logger": "^6.4.20",
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.20",
+    "@storybook/storybook-deployer": "^2.8.11",
     "@storybook/testing-library": "0.0.9",
+    "gh-pages": "^3.2.3",
     "react-app-rewire-alias": "^1.1.7",
     "react-app-rewired": "^2.2.1",
     "webpack": "^5.72.0"
