@@ -1,0 +1,101 @@
+:root {
+	--color--gray: #9c9c9c;
+	--color-white: #fff;
+	--color-black: #000;
+
+	--font-size-small: 14px;
+	--font-family-main: sans-serif;
+	--font-bold: 600;
+    
+	--transition: 0.3s;
+	--border-radius-small: 3px;
+}
+
+.UIButton_button__Fpn2b {
+	min-width: 100px;
+	padding: 10px;
+	border-radius: var(--border-radius-small);
+	border: none;
+	font-size: var(--font-size-small);
+	font-family: var(--font-family-main);
+	font-weight: var(--font-bold);
+	background: none;
+	outline: none;
+	transition: var(--transition);
+	cursor: pointer;
+}
+
+.UIButton_button__Fpn2b:disabled {
+    color: var(--color--gray);
+    border-color: var(--color--gray);
+}
+.UIButton_button__Fpn2b:disabled:hover {
+    cursor: not-allowed;
+    background-color: transparent;
+    color: var(--color--gray);
+}
+
+.UIButton_dark__wlFnA {
+	border: 1px solid var(--color-white);
+	color: var(--color-white);
+}
+.UIButton_dark__wlFnA:hover {
+    color: var(--color-black);
+    background-color: var(--color-white)
+}
+
+.UIButton_light__yGFI- {
+	border: 1px solid var(--color-black);
+	color: var(--color-black);
+}
+.UIButton_light__yGFI-:hover {
+    color: var(--color-white);
+    background-color: var(--color-black)
+}
+
+.UIInput_container__input__wE5BS {
+    --clear-width:13px ;
+}
+
+.UIInput_container__input__wE5BS {
+	position: relative;
+    display: inline-flex;
+}
+
+.UIInput_input__hKYhM {
+	min-width: 300px;
+	padding: 10px calc(var(--clear-width)+25px) 10px 10px;
+	border: 3px solid var(--color-light-gray);
+	border-radius: var(--border-radius-small);
+	font-size: var(--font-size-main);
+	font-family: var(--font-family-main);
+	outline: none;
+}
+
+.UIInput_clear__BaBFR {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+    width: var(--clear-width);
+    height: var(--clear-width);
+    opacity: .7;
+    transition: var(--transition);
+}
+
+.UIInput_clear__disabled__TcqaO {
+    opacity: .3;
+}
+
+.UILoading_loader__Q\+Js- {
+    width: 120px;
+    height: 120px;
+}
+
+.UILoading_shadow__CLNXC {
+    -webkit-filter: drop-shadow(0 0 5px red);
+            filter: drop-shadow(0 0 5px red);
+}
+
+
+/*# sourceMappingURL=main.de6fa799.css.map*/
