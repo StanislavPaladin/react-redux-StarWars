@@ -45,6 +45,12 @@ const FilteredPeople = ({ theme, setErrorApi }) => {
 	const [filtered, setFiltered] = useState(null);
 	const [loading, setLoading] = useState(false);
 
+
+	const checkedObjectEntries = Object.entries(checkedFields);
+	const findEpisodeNumbers = checkedObjectEntries.filter(
+		(item) => item[1] === true
+	);
+
 	const dispatchFilteredPeople = (people) => {
 		dispatch(fetchAllPersons(people));
 	};
@@ -74,7 +80,7 @@ const FilteredPeople = ({ theme, setErrorApi }) => {
 	};
 
 	useEffect(() => {
-		getResource(API_GET_ALL_PEOPLE);
+		!findEpisodeNumbers.length && getResource(API_GET_ALL_PEOPLE);
 	}, []);
 
 	useEffect(() => {
@@ -91,10 +97,7 @@ const FilteredPeople = ({ theme, setErrorApi }) => {
 	}, [checkedFields]);
 
 	const filterPeopleByEpisodes = () => {
-		const checkedObjectEntries = Object.entries(checkedFields);
-		const findEpisodeNumbers = checkedObjectEntries.filter(
-			(item) => item[1] === true
-		);
+
 		const checkedEpisodes = findEpisodeNumbers.map((ep) =>
 			ep[0].split("episode").join("")
 		);
