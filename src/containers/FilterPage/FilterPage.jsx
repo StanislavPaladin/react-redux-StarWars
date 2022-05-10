@@ -9,7 +9,6 @@ import styles from "./FilterPage.module.css";
 
 const FilterPage = ({ setErrorApi }) => {
 	const theme = useSelector(themeSelector);
-
 	return (
 		<div className={styles.container}>
 			<FilteredPeople theme={theme}/>

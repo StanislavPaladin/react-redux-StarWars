@@ -1,6 +1,5 @@
 import {
 	SWAPI_PEOPLE,
-	HTTP,
 	HTTPS,
 	SWAPI_ROOT,
 	GUIDE_IMG_EXTENTION,
@@ -8,11 +7,11 @@ import {
 	SWAPI_PARAM_PAGE,
 } from "@constants/api";
 
-export const getPeoplePageId = url => {
+export const getPeoplePageId = (url) => {
 	const position = url.lastIndexOf(SWAPI_PARAM_PAGE);
-	const id = url.slice(position+SWAPI_PARAM_PAGE.length, url.length)
+	const id = url.slice(position + SWAPI_PARAM_PAGE.length, url.length);
 	return Number(id);
-}
+};
 
 const getId = (url, category) => {
 	const id = url.replace(HTTPS + SWAPI_ROOT + category, "").replace(/\//g, "");
@@ -20,4 +19,30 @@ const getId = (url, category) => {
 };
 
 export const getPeopleId = (url) => getId(url, SWAPI_PEOPLE);
-export const getPeopleImage = (id) => `${URL_IMG_PERSON}/${id}${GUIDE_IMG_EXTENTION}`;
+export const getPeopleImage = (id) =>
+	`${URL_IMG_PERSON}/${id}${GUIDE_IMG_EXTENTION}`;
+
+export const returnFetchingResult = async (url, action) => {
+	try {
+		const allData = await action(url);
+		if(allData) {
+			const peopleList = allData.results.map(({ name, url }) => {
+				const id = getPeopleId(url);
+				const img = getPeopleImage(id);
+				return {
+					id,
+					name,
+					img,
+				};
+			});
+			return {
+				allData,
+				peopleList
+			};
+		}
+
+	} catch (e) {
+		return console.error(e);
+	}
+
+};

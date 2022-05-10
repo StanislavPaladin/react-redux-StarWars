@@ -90,6 +90,15 @@
 	font-weight: var(--font-bold);
 }
 
+.loader__wrapper {
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
 @media screen and (max-width: 805px) {
 	.filters__container {
 		top: 130px;

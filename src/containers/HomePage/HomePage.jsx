@@ -10,7 +10,7 @@ import {
 import jedi from "./img/jedi.svg";
 import dark from "./img/dark-side.svg";
 import light from "./img/light-side.svg";
-import check from "./img/check.svg"
+import check from "./img/check.svg";
 
 import styles from "./HomePage.module.css";
 import { useEffect, useState } from "react";
@@ -23,12 +23,12 @@ const HomePage = () => {
 	};
 	const storeData = useSelector(themeSelector);
 	const [activeTheme, setActiveTheme] = useState(null);
-	
-	useEffect(()=> {
-		setActiveTheme(storeData);
-	},[])
 
-	useEffect(()=> {
+	useEffect(() => {
+		setActiveTheme(storeData);
+	}, []);
+
+	useEffect(() => {
 		switch (storeData) {
 			case "dark":
 				setActiveTheme("dark");
@@ -43,32 +43,50 @@ const HomePage = () => {
 				setActiveTheme("robo");
 				break;
 		}
-	}, [storeData])
+	}, [storeData]);
 	return (
 		<>
 			<h1 className="header__text">choose app theme</h1>
 			<button
 				onClick={() => dispatchTheme(THEME_LIGHT)}
-				className={cn(styles.light, styles.theme__btn, activeTheme==="light"&&styles.theme__active)}
+				className={cn(
+					styles.light,
+					styles.theme__btn,
+					activeTheme === "light" && styles.theme__active
+				)}
 			>
-				<img src={light} alt="" />
-				{activeTheme === "light" ? <img src={check} className={styles.theme__checked}/> : ''}
+				<img src={light} alt="theme-icon" />
+				{activeTheme === "light" && (
+					<img alt="theme-icon" src={check} className={styles.theme__checked} />
+				)}
 				I'm from light side
 			</button>
 			<button
 				onClick={() => dispatchTheme(THEME_DARK)}
-				className={cn(styles.dark, styles.theme__btn, activeTheme==="dark"&&styles.theme__active)}
+				className={cn(
+					styles.dark,
+					styles.theme__btn,
+					activeTheme === "dark" && styles.theme__active
+				)}
 			>
-				<img src={dark} alt="" />
-				{activeTheme === "dark" ? <img src={check} className={styles.theme__checked}/> : ''}
+				<img src={dark} alt="theme-icon" />
+				{activeTheme === "dark" && (
+					<img alt="theme-icon" src={check} className={styles.theme__checked} />
+				)}
 				I'm from dark side
 			</button>
 			<button
 				onClick={() => dispatchTheme(THEME_ROBO)}
-				className={cn(styles.robo, styles.theme__btn, activeTheme==="robo"&&styles.theme__active)}
+				className={cn(
+					styles.robo,
+					styles.theme__btn,
+					activeTheme === "robo" && styles.theme__active
+				)}
 			>
-				<img src={jedi} alt="" />
-				{activeTheme === "robo" ? <img src={check} className={styles.theme__checked}/> : ''}
+				<img src={jedi} alt="theme-icon" />
+				{activeTheme === "robo" && (
+					<img alt="theme-icon" src={check} className={styles.theme__checked} />
+				)}
 				I'm Jedi
 			</button>
 		</>

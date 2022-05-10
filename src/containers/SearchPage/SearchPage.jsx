@@ -57,8 +57,8 @@ const SearchPage = ({ setErrorApi }) => {
 	};
 
 	useEffect(() => {
-		getResponse(storeData);
-		storeData && setInputValue(storeData);
+		typeof(storeData) === 'string' ? getResponse(storeData) : getResponse("");
+		typeof(storeData) === 'string' ? setInputValue(storeData) : setInputValue('');
 		return () => {
 			setFlagState(true);
 		};

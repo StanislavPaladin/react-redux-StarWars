@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { withErorrApi } from "@hoc-helpers/withErorrApi";
 import {
 	allPeopleSelector,
 	checkedFilters,
@@ -9,13 +10,17 @@ import {
 } from "@store/constants/selectors";
 import { saveCheckedFilters } from "@store/actions";
 import { setPersonToFavorite, removePersonFromFavorite } from "@store/actions";
+import { API_GET_ALL_PEOPLE } from "@constants/api";
+import { getPeopleId, getPeopleImage } from "@services/getPeopleData";
+import { fetchAllData } from "@utils/network";
+import { fetchAllPersons } from "@store/actions";
 import UILoading from "@components/UI/UILoading";
 import starFilledImg from "./img/star-fill.svg";
 import starEmptyImg from "./img/star.svg";
 
 import styles from "./FilteredPeople.module.css";
 
-const FilteredPeople = ({ theme }) => {
+const FilteredPeople = ({ theme, setErrorApi }) => {
 	const allPeopleStoreData = useSelector(allPeopleSelector);
 	const savedFiltersStoreData = useSelector(checkedFilters);
 	const favoritePeople = useSelector(favoritesSelector);
@@ -38,8 +43,42 @@ const FilteredPeople = ({ theme }) => {
 	);
 	const [people, setPeople] = useState(allPeopleStoreData);
 	const [filtered, setFiltered] = useState(null);
+	const [loading, setLoading] = useState(false);
+
+	const dispatchFilteredPeople = (people) => {
+		dispatch(fetchAllPersons(people));
+	};
+
+	const getResource = async (url) => {
+		setLoading(true);
+		try {
+			const res = await fetchAllData(url);
+			const peopleList = res.map(({ name, url, films }) => {
+				const id = getPeopleId(url);
+				const img = getPeopleImage(id);
+				return {
+					id,
+					name,
+					img,
+					films,
+				};
+			});
+			dispatchFilteredPeople(peopleList);
+			setErrorApi(false);
+		} catch (err) {
+			setErrorApi(true);
+			console.error("error", err);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	useEffect(() => {
+		getResource(API_GET_ALL_PEOPLE);
+	}, []);
+
+	useEffect(() => {
+		// sorting by name
 		// people && setPeople(people?.sort((a, b) => (a.name > b.name ? 1 : -1)));
 		filterPeopleByEpisodes();
 		setPeople(allPeopleStoreData);
@@ -84,14 +123,14 @@ const FilteredPeople = ({ theme }) => {
 
 	const toggleCkeckBox = (e) => {
 		const { target } = e;
-		const value = target.type === "checkbox" ? target.checked : target.value;
+		const value = target.checked;
 		const { name } = target;
 		setCheckedFields((fields) => ({ ...fields, [name]: value }));
 	};
 
 	const dispatchFavorites = (e, id, name, img, isFavorite) => {
 		e.preventDefault();
-		if(!isFavorite) {
+		if (!isFavorite) {
 			dispatch(
 				setPersonToFavorite({
 					[id]: {
@@ -105,8 +144,6 @@ const FilteredPeople = ({ theme }) => {
 		}
 	};
 
-	
-
 	return (
 		<div className={styles.container}>
 			{people && people.length ? (
@@ -119,14 +156,14 @@ const FilteredPeople = ({ theme }) => {
 									<p className={styles.person__name}>{name}</p>
 									{!!favoriteCharacters.find((item) => item[0] === id) ? (
 										<img
-											onClick={(e) => dispatchFavorites(e,id, name, img, true)}
+											onClick={(e) => dispatchFavorites(e, id, name, img, true)}
 											className={styles.person__favorite}
 											src={starFilledImg}
 											alt="favorite"
 										/>
 									) : (
 										<img
-											onClick={(e) => dispatchFavorites(e,id, name, img, false)}
+											onClick={(e) => dispatchFavorites(e, id, name, img, false)}
 											className={styles.person__favorite}
 											src={starEmptyImg}
 											alt="not favorite"
@@ -137,7 +174,10 @@ const FilteredPeople = ({ theme }) => {
 						))}
 				</ul>
 			) : (
-				<UILoading theme={theme} />
+				<div className={styles.loader__wrapper}>
+					<UILoading theme={theme} isShadow={true} />
+					<h1 className="header__text">Please wait a bit. We fetching all characters data</h1>
+				</div>
 			)}
 
 			<div className={styles.filters__container}>
@@ -228,4 +268,4 @@ FilteredPeople.propTypes = {
 	setPeople: PropTypes.func,
 };
 
-export default FilteredPeople;
+export default withErorrApi(FilteredPeople);

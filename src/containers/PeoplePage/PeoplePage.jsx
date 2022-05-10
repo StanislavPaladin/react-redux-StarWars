@@ -9,15 +9,13 @@ import UILoading from "@components/UI/UILoading/UILoading";
 import { getApiResource, ChangeHTTP } from "@utils/network";
 import { API_PEOPLE } from "@constants/api";
 import {
-	getPeopleId,
-	getPeopleImage,
 	getPeoplePageId,
+	returnFetchingResult,
 } from "@services/getPeopleData";
 import { useQueryParams } from "@hooks/useQueryParams";
 import { themeSelector } from "@store/constants/selectors";
 
 import styles from "./PeoplePage.module.css";
-
 
 const PeoplePage = ({ setErrorApi }) => {
 	const theme = useSelector(themeSelector);
@@ -26,30 +24,28 @@ const PeoplePage = ({ setErrorApi }) => {
 	const [prevPage, setPrevPage] = useState(null);
 	const [nextPage, setNextPage] = useState(null);
 	const [counterPage, setCounterPage] = useState(1);
+	const [loading, setLoading] = useState(false);
 
 	const query = useQueryParams();
 	const queryPage = query.get("page");
 
 	const getResource = async (url) => {
 		if (!flagState) {
-			const res = await getApiResource(url);
-			if (res) {
-				const peopleList = res.results.map(({ name, url }) => {
-					const id = getPeopleId(url);
-					const img = getPeopleImage(id);
-					return {
-						id,
-						name,
-						img,
-					};
-				});
-				setPeople(peopleList);
-				setPrevPage(ChangeHTTP(res.previous));
-				setNextPage(ChangeHTTP(res.next));
+			setLoading(true);
+			try {
+				const res = await returnFetchingResult(url, getApiResource);
+				res&&setLoading(false);
+				setPeople(res.peopleList);
+				setPrevPage(ChangeHTTP(res.allData.previous));
+				setNextPage(ChangeHTTP(res.allData.next));
 				setCounterPage(getPeoplePageId(url));
 				setErrorApi(false);
-			} else {
+			} catch (error) {
 				setErrorApi(true);
+				console.log("error", error);
+			}
+			finally {
+				setLoading(false)
 			}
 		}
 	};
@@ -68,9 +64,10 @@ const PeoplePage = ({ setErrorApi }) => {
 				prevPage={prevPage}
 				nextPage={nextPage}
 				counterPage={counterPage}
+				loading={loading}
 			/>
-			
-			{people ? (
+
+			{people&&!loading ? (
 				<PeopleList people={people} getResource={getResource} />
 			) : (
 				<UILoading theme={theme} isShadow={true} classes={""} />
